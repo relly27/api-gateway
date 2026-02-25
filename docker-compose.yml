@@ -1,0 +1,45 @@
+services:
+  database:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: security_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://user:password@database:5432/security_db
+      PORT: 3001
+      JWT_SECRET: supersecret
+    depends_on:
+      - database
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://user:password@database:5432/security_db
+      PORT: 3000
+      JWT_SECRET: supersecret
+      AUTH_SERVICE_URL: http://auth-service:3001
+      EXAMPLE_SERVICE_URL: http://example-service:3002
+    depends_on:
+      - database
+      - auth-service
+
+  example-service:
+    build: ./example-service
+    ports:
+      - "3002:3002"
+    environment:
+      PORT: 3002
+    depends_on:
+      - gateway
