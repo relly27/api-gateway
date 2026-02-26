@@ -1,2 +1,3 @@
-# api-gateway
-este sera un proyecto en node express tipo micro servicio para obtencion de token autorizacion y autenticacion.
+# Centralized Authentication and Authorization System
+
+This project provides a robust architectural solution to centralize security concerns for Express-based microservices.
