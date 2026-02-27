@@ -4,7 +4,9 @@ const pool = require('../db/db');
  * Middleware to record all gateway transactions in the audit_logs table.
  */
 const auditMiddleware = (req, res, next) => {
-  const { method, path, ip, headers } = req;
+  const method = req.headers['x-original-method'] || req.method;
+  const path = req.headers['x-original-uri'] || req.path;
+  const { ip, headers } = req;
   const userAgent = headers['user-agent'];
 
   // Listen for the response to finish to capture the status code
