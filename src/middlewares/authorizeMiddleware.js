@@ -4,7 +4,9 @@ const pool = require('../db/db');
  * Middleware to handle authorization (RBAC, Ownership, Department restrictions).
  */
 const authorizeMiddleware = async (req, res, next) => {
-  const { method, path } = req;
+  // Support for Nginx auth_request subrequests
+  const method = req.headers['x-original-method'] || req.method;
+  const path = req.headers['x-original-uri'] || req.path;
 
   try {
     // 1. Find the permission configuration for this route and method

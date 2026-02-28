@@ -4,11 +4,14 @@ This guide explains how to integrate a new microservice into the centralized aut
 
 ## 1. Gateway Overview
 
-The API Gateway acts as the single entry point. It handles:
-- **Authentication**: Validates JWTs and checks active sessions.
-- **Authorization**: RBAC, Department restrictions, and Owner validation.
-- **Auditing**: Logs every request and response.
-- **Header Injection**: Forwards validated user context to downstream services.
+The API Gateway acts as the single entry point. It handles authentication, authorization, auditing, and header injection.
+
+### Gateway Modes
+
+The system supports two gateway modes:
+
+1.  **Node.js Gateway (Default)**: Uses the built-in Express-based proxy logic in `src/routes/gateway/`. Simple to set up and ideal for low-to-medium traffic.
+2.  **Nginx Gateway (Performance Mode)**: Uses Nginx as a high-performance entry point. Nginx delegates security checks to the Express service using the `auth_request` module. This is recommended for production environments.
 
 ## 2. Adding a New Microservice
 

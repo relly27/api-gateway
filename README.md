@@ -4,7 +4,7 @@ A robust, scalable architectural solution for centralizing security concerns acr
 
 ## Features
 
-- **Centralized API Gateway**: Single entry point for all microservices.
+- **Centralized API Gateway**: Single entry point for all microservices (Node.js or Nginx-based).
 - **Shared Security Database**: Unified management of Users, Roles, Permissions, Sessions, and Audit Logs.
 - **Dynamic Routing**: Configure routes and targets directly in the database.
 - **Granular RBAC**: Role-based access control per route and HTTP method.
@@ -13,6 +13,7 @@ A robust, scalable architectural solution for centralizing security concerns acr
 - **Advanced Auditing**: Complete history of logins, registrations, and proxied requests.
 - **2FA Support**: Built-in TOTP two-factor authentication.
 - **Header Spoofing Protection**: Automatic stripping of unauthorized security headers.
+- **Nginx Integration**: Automated script to configure Nginx as a high-performance API Gateway using `auth_request`.
 
 ## Getting Started
 
@@ -47,6 +48,7 @@ npm start
 ## Documentation
 
 - [Microservices Integration Guide](./docs/INTEGRATION_GUIDE.md): Learn how to add and secure new services.
+- [Nginx Setup Guide](./docs/NGINX_SETUP.md): Configure Nginx as a high-performance entry point.
 - [Database Schema](./src/db/migration/up.sql): Detailed table definitions.
 
 ## Project Structure
